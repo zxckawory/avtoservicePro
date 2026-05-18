@@ -1,0 +1,48 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:u="https://irihi.tech/ursa"
+		xmlns:avalonia="using:Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="avtoservicePro.MainWindow"
+        Title="Авторизация">
+    <Grid RowDefinitions="50*,700*,50*" ColumnDefinitions="400*,350*,50*">
+		<StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="20">
+			<avalonia:MaterialIcon Kind="CarCog" Width="180" Height="180">
+				<avalonia:MaterialIcon.Effect>
+					<DropShadowEffect BlurRadius="20" Color="#8E44AD" Opacity="0.2"/>
+                </avalonia:MaterialIcon.Effect>
+            </avalonia:MaterialIcon>
+
+            <StackPanel Spacing="5">
+				<TextBlock Text="Добро пожаловать!" HorizontalAlignment="Center"/>
+                <TextBlock Text="Ваш сервис в надежных руках" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,*,*,*,*" Margin="10,0">
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock Text="AUTO PRO" HorizontalAlignment="Center"  LetterSpacing="2"/>
+                <TextBlock Text="вход в панель управления" HorizontalAlignment="Center"  LetterSpacing="2.5"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="5">
+				<TextBlock Text="E-mail" Margin="8,0,0,5"/>
+                <TextBox Name="LoginTextBox" PlaceholderText="example@mail.com" Text="admin"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="5">
+				<TextBlock Text="Пароль" Margin="8,0,0,5"/>
+                <TextBox Name="PasswordTextBox" PlaceholderText="Введите пароль" PasswordChar="•" Text="admin" Classes="revealPasswordButton"/>
+            </StackPanel>
+
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Name="EnterButton" Click="EnterButton_Click" Margin="0,20,0,0" Content="ВОЙТИ" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+				 <TextBlock Text="Впервые в системе? " VerticalAlignment="Center"/>
+                <HyperlinkButton Name="RegistrationHLButton" Content="Создать аккаунт" Padding="0" Click="RegistrationHLButton_Click" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

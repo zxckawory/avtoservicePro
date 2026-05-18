@@ -1,0 +1,51 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:u="https://irihi.tech/ursa"
+			 xmlns:m="using:avtoservicePro.Models"
+			 xmlns:avalonia="using:Material.Icons.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+			 x:Class="avtoservicePro.UserControlService">
+	<Grid ColumnDefinitions="Auto,*">
+		<Expander ExpandDirection="Right" Header="Панель навигации" Name="NavigationExpander" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10">
+			<StackPanel Margin="10">
+				<Button Name="AddServiceButton" Content="Добавить услугу" Click="AddServiceButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10"/>
+			</StackPanel>
+		</Expander>
+
+		<ScrollViewer Grid.Column="1">
+			<ItemsControl Name="ServiceItemsControl">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="m:Service">
+						<Border Background="White" CornerRadius="12" Padding="15" Margin="10">
+							<Grid ColumnDefinitions="Auto, *, Auto, Auto">
+								<Border Width="44" Height="44" Background="#F4ECF7" CornerRadius="8">
+									<avalonia:MaterialIcon Kind="Wrench" Width="22" Height="22"/>
+								</Border>
+
+								<TextBlock Grid.Column="1" Margin="15,0" VerticalAlignment="Center" Text="{Binding ServiceName}"/>
+
+								<StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,20,0">
+									<TextBlock Text="Стоимость" HorizontalAlignment="Right"/>
+									<TextBlock Text="{Binding ServiceCost, StringFormat='{}{0}₽'}"/>
+								</StackPanel>
+
+								<StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="10">
+									<Button Name="UpdateServiceButton" Click="UpdateServiceButton_Click" Width="36" Height="36" BorderThickness="1" CornerRadius="8" ToolTip.Tip="Изменить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}">
+										<avalonia:MaterialIcon Kind="Edit" Width="16" Height="16"/>
+									</Button>
+
+									<Button Name="DeleteServiceButton" Click="DeleteServiceButton_Click" Width="36" Height="36" CornerRadius="8" ToolTip.Tip="Удалить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}">
+										<avalonia:MaterialIcon Kind="Delete" Width="16" Height="16"/>
+									</Button>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

@@ -1,0 +1,62 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:u="https://irihi.tech/ursa"
+			 xmlns:m="using:avtoservicePro.Models"
+			 xmlns:avalonia="using:Material.Icons.Avalonia"
+			 x:CompileBindings="False"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="avtoservicePro.UserControlOrder">
+	<Grid ColumnDefinitions="Auto,*">
+		<Expander ExpandDirection="Right" Header="Панель навигации" Name="NavigationExpander" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10">
+			<StackPanel Margin="10">
+				<Button Name="AddOrderButton" Content="Добавить заказ" Click="AddOrderButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10"/>
+			</StackPanel>
+		</Expander>
+
+		<ScrollViewer Grid.Column="1">
+			<ItemsControl Name="OrdersItemsControl">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="m:Order">
+						<Border Background="White" CornerRadius="15" Padding="20" Margin="10">
+							<Grid ColumnDefinitions="Auto, *, Auto">
+								<Image Name="OrderImage" Source="{Binding ImageBitmap}" Width="80" Height="80"/>
+
+								<StackPanel Grid.Column="1" Margin="20,0" Spacing="8">
+									<TextBlock Text="{Binding Car.CarNameNumber}"/>
+
+									<TextBlock Text="{Binding Description}" Margin="0,0,0,5"/>
+
+									<Separator Height="1" Background="#F0F0F0" Margin="0,5"/>
+
+									<WrapPanel Orientation="Horizontal">
+										<StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+											<avalonia:MaterialIcon Kind="CalendarClock" Width="16" Margin="0,0,6,0"/>
+											<TextBlock Text="{Binding OrderDayTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+										</StackPanel>
+
+										<StackPanel Orientation="Horizontal">
+											<avalonia:MaterialIcon Kind="AccountTie" Width="16" Margin="0,0,6,0"/>
+											<TextBlock Text="{Binding Car.User.Name}" FontWeight="Medium"/>
+										</StackPanel>
+									</WrapPanel>
+								</StackPanel>
+
+								<StackPanel Grid.Column="2" Spacing="10" VerticalAlignment="Center">
+									<Button Name="UpdateOrderButton" Click="UpdateOrderButton_Click" Width="36" Height="36" BorderThickness="1" CornerRadius="8" ToolTip.Tip="Изменить">
+										<avalonia:MaterialIcon Kind="Edit" Width="16" Height="16"/>
+									</Button>
+
+									<Button Name="DeleteOrderButton" Click="DeleteOrderButton_Click" Width="36" Height="36" CornerRadius="8" ToolTip.Tip="Удалить">
+										<avalonia:MaterialIcon Kind="Delete" Width="16" Height="16"/>
+									</Button>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

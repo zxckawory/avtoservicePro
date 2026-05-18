@@ -1,0 +1,70 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:u="https://irihi.tech/ursa"
+		xmlns:m="using:avtoservicePro.Models"
+		xmlns:avalonia="using:Material.Icons.Avalonia"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+		x:Class="avtoservicePro.NewOrderWindow"
+		Background="#F8F9FD"
+		Title="Создание заказа">
+	<Grid RowDefinitions="Auto, *, Auto" Margin="30">
+		<StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,25">
+			<Border Width="45" Height="45" Background="#F4ECF7" CornerRadius="10">
+				<avalonia:MaterialIcon Kind="FilePlus" Width="26" Height="26"/>
+			</Border>
+
+			<StackPanel VerticalAlignment="Center">
+				<TextBlock Name="TitleTextBox" Text="Создание заказа"/>
+				<TextBlock Text="Привяжите услуги к автомобилю клиента"/>
+			</StackPanel>
+		</StackPanel>
+
+		<Grid Grid.Row="1" ColumnDefinitions="*,1.2*">
+			<StackPanel Spacing="20" Margin="0,0,20,0">
+				<Border Background="White" CornerRadius="15" Padding="20" BoxShadow="0 2 10 0 #08000000">
+					<StackPanel Spacing="15">
+						<Image Name="OrderImage" Source="avares://avtoservicePro/Assets/image_placeholder_resource.png" Height="150" Margin="0,0,0,20" VerticalAlignment="Bottom"/>
+
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+							<Button Name="AddImage" Click="AddImage_Click" Margin="0,0,10,0" Height="45" Width="45" Padding="0">
+								<avalonia:MaterialIcon Kind="ImagePlusOutline" Height="26"/>
+							</Button>
+
+							<Button Name="RemoveImage" Click="RemoveImage_Click" Margin="10,0,0,0" Height="45" Width="45" Padding="0">
+								<avalonia:MaterialIcon Kind="ImageMinusOutline" Height="26"/>
+							</Button>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+
+			<StackPanel Grid.Column="1" Spacing="20" Margin="0,0,20,0">
+				<Border Background="White" CornerRadius="15" Padding="20" BoxShadow="0 2 10 0 #08000000">
+					<StackPanel Spacing="15">
+						<StackPanel Spacing="8">
+							<TextBlock Text="Автомобиль"/>
+							<u:AutoCompleteBox Name="CarComboBox" HorizontalAlignment="Stretch" Height="45"/>
+						</StackPanel>
+
+						<StackPanel Spacing="8">
+							<TextBlock Text="Описание проблемы"/>
+							<TextBox Name="DescriptionTextBox" PlaceholderText="Опишите состояние или жалобы..." AcceptsReturn="True" TextWrapping="Wrap" Height="120" VerticalContentAlignment="Top" Padding="10"/>
+						</StackPanel>
+
+						<StackPanel Spacing="8">
+							<TextBlock Text="Выбор услуг:"/>
+							<u:MultiComboBox Name="ServicesBox"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</Grid>
+
+		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="15" Margin="0,25,0,0">
+			<Button Name="CloseButton" Click="CloseButton_Click" Content="Отмена" Width="120" Height="45"/>
+			<Button Name="SaveButton" Click="SaveButton_Click" Content="Сохранить" Width="180" Height="45"/>
+		</StackPanel>
+	</Grid>
+</Window>

@@ -1,0 +1,41 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:u="https://irihi.tech/ursa"
+		xmlns:m="using:avtoservicePro.Models"
+		xmlns:avalonia="using:Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
+		Width="600" Height="350"
+        x:Class="avtoservicePro.NewServiceWindow"
+        Title="Создание новой услуги"
+        Background="#F8F9FD">
+    <Grid RowDefinitions="Auto, *, Auto" Margin="30">
+		<StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,20">
+			<Border Width="40" Height="40" Background="#F4ECF7" CornerRadius="8">
+				<avalonia:MaterialIcon Kind="PlusCircle" Width="24" Height="24"/>
+            </Border>
+            <StackPanel VerticalAlignment="Center">
+				<TextBlock Name="TitleTextBox" Text="Создание услуги"/>
+				<TextBlock Text="Заполните данные для добавления в прайс"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="20">
+			<StackPanel Spacing="8">
+				<TextBlock Text="Название услуги" Margin="5,0"/>
+				<TextBox Name="ServiceTextBox" PlaceholderText="Напр: Покраска крыла" Height="45" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Spacing="8">
+				<TextBlock Text="Стоимость (₽)" Margin="5,0"/>
+				<TextBox Name="CostTextBox" PlaceholderText="0" Height="45" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="12" Margin="0,20,0,0">
+			<Button Name="CloseButton" Click="CloseButton_Click" Content="Отмена" Width="120" Height="42"/>
+			<Button Name="SaveButton" Click="SaveButton_Click" Content="Сохранить" Width="200" Height="42"/>
+        </StackPanel>
+    </Grid>
+</Window>

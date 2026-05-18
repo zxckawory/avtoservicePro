@@ -1,0 +1,50 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+		xmlns:avalonia="using:Material.Icons.Avalonia"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="avtoservicePro.RegistrationWindow"
+		Title="Регистрация нового пользователя">
+
+	<Grid ColumnDefinitions="400*,350*,50*" RowDefinitions="50*,700*,50*" ShowGridLines="False">
+
+		<StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
+			<avalonia:MaterialIcon Kind="AccountPlus" Width="140" Height="140" Opacity="0.8"/>
+			<TextBlock Text="Новый профиль" HorizontalAlignment="Center"/>
+			<TextBlock Text="Заполните данные для доступа к системе" HorizontalAlignment="Center"/>
+		</StackPanel>
+
+		<Grid Grid.Column="1" Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" Margin="10,0">
+
+			<TextBlock Text="РЕГИСТРАЦИЯ" HorizontalAlignment="Center" Margin="0,0,0,20" LetterSpacing="3"/>
+
+			<StackPanel Grid.Row="1" Margin="5">
+				<TextBlock Text="E-mail" Margin="5,0,0,3"/>
+				<TextBox Name="LoginTextBox" PlaceholderText="ivan@mail.com"/>
+			</StackPanel>
+
+			<StackPanel Grid.Row="2" Margin="5">
+				<TextBlock Text="Пароль" Margin="5,0,0,3"/>
+				<TextBox Name="PasswordTextBox" PlaceholderText="123abc" PasswordChar="•"/>
+			</StackPanel>
+
+			<StackPanel Grid.Row="3" Margin="5">
+				<TextBlock Text="ФИО сотрудника" Margin="5,0,0,3"/>
+				<TextBox Name="NameTextBox" PlaceholderText="Иванов Иван Иванович"/>
+			</StackPanel>
+
+			<StackPanel Grid.Row="4" Margin="5">
+				<TextBlock Text="Номер телефона" Margin="5,0,0,3"/>
+				<TextBox Name="PhoneNumberTextBox" PlaceholderText="+7 (999) 000-00-00"/>
+			</StackPanel>
+
+			<Button Name="NewUserButton" Click="NewUserButton_Click" Grid.Row="5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="СОЗДАТЬ АККАУНТ" Margin="5,25,5,5"/>
+
+			<StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+				<TextBlock Text="Уже есть аккаунт? " VerticalAlignment="Center"/>
+				<HyperlinkButton Name="EnterHLButton" Content="Войти" Padding="0" Click="EnterHLButton_Click"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</Window>
