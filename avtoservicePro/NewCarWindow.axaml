@@ -2,8 +2,8 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-		Width="700" Height="600"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+		Width="800" Height="600"
 		xmlns:u="https://irihi.tech/ursa"
 		xmlns:m="using:avtoservicePro.Models"
 		xmlns:avalonia="using:Material.Icons.Avalonia"
@@ -17,57 +17,79 @@
 			</Border>
 
 			<StackPanel VerticalAlignment="Center">
-				<TextBlock Name="TitleTextBox" Text="Создание автомобиля"/>
-				<TextBlock Text="Введите технические характеристики транспортного средства"/>
+				<TextBlock Name="TitleTextBox" Text="Создание автомобиля" FontSize="22" FontWeight="Bold" Foreground="#2C3A4F"/>
+				<TextBlock Text="Введите технические характеристики транспортного средства" FontSize="12" Foreground="#7F8C8D"/>
 			</StackPanel>
 		</StackPanel>
 
-		<Border Grid.Row="1" Background="White" CornerRadius="15" Padding="25" BoxShadow="0 4 12 0 #0C000000">
-			<ScrollViewer>
-				<Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto" ColumnSpacing="25" RowSpacing="20">
-					<StackPanel Spacing="8">
-						<TextBlock Text="Марка и модель" Margin="5,0"/>
-						<TextBox Name="CarNameTextBox" PlaceholderText="Напр: BMW M5" Height="45" VerticalContentAlignment="Center"/>
-					</StackPanel>
+		<Grid Grid.Row="1" ColumnDefinitions="*,1.2*">
 
-					<StackPanel Grid.Column="1" Spacing="8">
-						<TextBlock Text="Гос. номер" Margin="5,0"/>
-						<TextBox Name="CarNumberTextBox" PlaceholderText="A001AA77" Height="45" VerticalContentAlignment="Center"/>
-					</StackPanel>
+			<StackPanel Spacing="20" Margin="0,0,20,0">
+				<Border Background="White" CornerRadius="15" Padding="20" BoxShadow="0 2 10 0 #08000000">
+					<StackPanel Spacing="15">
+						<Image Name="CarImage" Source="avares://avtoservicePro/Assets/image_placeholder_resource.png" Height="150" Margin="0,0,0,20" VerticalAlignment="Bottom"/>
 
-					<StackPanel Grid.Row="1" Spacing="8">
-						<TextBlock Text="Тип кузова" Margin="5,0"/>
-						<u:AutoCompleteBox Name="CarTypeComboBox" HorizontalAlignment="Stretch" Height="45"/>
-					</StackPanel>
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+							<Button Name="AddImage" Click="AddImage_Click" Margin="0,0,10,0" Height="45" Width="45" Padding="0">
+								<avalonia:MaterialIcon Kind="ImagePlusOutline" Height="26" Classes="ButtonImage"/>
+							</Button>
 
-					<StackPanel Grid.Row="1" Grid.Column="1" Spacing="8">
-						<TextBlock Text="Мощность (л.с.)" Margin="5,0"/>
-						<TextBox Name="HorsePowerTextBox" PlaceholderText="0" Height="45" VerticalContentAlignment="Center"/>
+							<Button Name="RemoveImage" Click="RemoveImage_Click" Margin="10,0,0,0" Height="45" Width="45" Padding="0">
+								<avalonia:MaterialIcon Kind="ImageMinusOutline" Height="26" Classes="ButtonImage"/>
+							</Button>
+						</StackPanel>
 					</StackPanel>
+				</Border>
+			</StackPanel>
 
-					<StackPanel Grid.Row="2" Spacing="8">
-						<TextBlock Text="Объем двигателя (л)" Margin="5,0"/>
-						<TextBox Name="EngineVolumeTextBox" PlaceholderText="2.0" Height="45" VerticalContentAlignment="Center"/>
-					</StackPanel>
+			<StackPanel Grid.Column="1" Spacing="20" Margin="0,0,20,0">
+				<Border Background="White" CornerRadius="15" Padding="25" BoxShadow="0 4 12 0 #0C000000">
+					<ScrollViewer>
+						<Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto, Auto" ColumnSpacing="25" RowSpacing="20">
+							<StackPanel Spacing="8">
+								<TextBlock Text="Марка и модель" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="CarNameTextBox" PlaceholderText="Напр: BMW M5" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
 
-					<StackPanel Grid.Row="2" Grid.Column="1" Spacing="8">
-						<TextBlock Text="Тип топлива" Margin="5,0"/>
-						<u:AutoCompleteBox Name="FuelTypeComboBox" HorizontalAlignment="Stretch" Height="45"/>
-					</StackPanel>
+							<StackPanel Grid.Column="1" Spacing="8">
+								<TextBlock Text="Гос. номер" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="CarNumberTextBox" PlaceholderText="A001AA77" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
 
-					<StackPanel Grid.Row="3" Spacing="8">
-						<TextBlock Text="Год выпуска" Margin="5,0"/>
-						<TextBox Name="YearTextBox" PlaceholderText="2023" Height="45" VerticalContentAlignment="Center"/>
-					</StackPanel>
+							<StackPanel Grid.Row="1" Spacing="8">
+								<TextBlock Text="Тип кузова" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<u:AutoCompleteBox Name="CarTypeComboBox" HorizontalAlignment="Stretch" Height="45"/>
+							</StackPanel>
 
-					<StackPanel Grid.Row="3" Grid.Column="1" Spacing="8">
-						<TextBlock Text="Пробег (км)" Margin="5,0"/>
-						<TextBox Name="MileageTextBox" PlaceholderText="0" Height="45" VerticalContentAlignment="Center"/>
-					</StackPanel>
-				</Grid>
-			</ScrollViewer>
-		</Border>
+							<StackPanel Grid.Row="1" Grid.Column="1" Spacing="8">
+								<TextBlock Text="Мощность (л.с.)" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="HorsePowerTextBox" PlaceholderText="0" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
 
+							<StackPanel Grid.Row="2" Spacing="8">
+								<TextBlock Text="Объем двигателя (л)" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="EngineVolumeTextBox" PlaceholderText="2.0" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
+
+							<StackPanel Grid.Row="2" Grid.Column="1" Spacing="8">
+								<TextBlock Text="Тип топлива" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<u:AutoCompleteBox Name="FuelTypeComboBox" HorizontalAlignment="Stretch" Height="45"/>
+							</StackPanel>
+
+							<StackPanel Grid.Row="3" Spacing="8">
+								<TextBlock Text="Год выпуска" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="YearTextBox" PlaceholderText="2023" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
+
+							<StackPanel Grid.Row="3" Grid.Column="1" Spacing="8">
+								<TextBlock Text="Пробег (км)" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="5,0"/>
+								<TextBox Name="MileageTextBox" PlaceholderText="0" Height="45" VerticalContentAlignment="Center"/>
+							</StackPanel>
+						</Grid>
+					</ScrollViewer>
+				</Border>
+			</StackPanel>
+		</Grid>
 		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="15" Margin="0,25,0,0">
 			<Button Name="CloseButton" Click="CloseButton_Click" Content="Отмена" Width="120" Height="42"/>
 			<Button Name="SaveButton" Click="SaveButton_Click" Content="Сохранить" Width="200" Height="42"/>

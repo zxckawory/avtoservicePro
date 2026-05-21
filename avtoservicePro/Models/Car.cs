@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using System;
 using System.Collections.Generic;
 
 namespace avtoservicePro.Models;
@@ -33,6 +35,8 @@ public partial class Car
 
     public virtual User User { get; set; } = null!;
 
+    public string? Image { get; set; }
+
     public string CarNameNumber
     {
         get
@@ -44,5 +48,41 @@ public partial class Car
     public override string ToString()
     {
         return CarNameNumber;
+    }
+
+    public Bitmap ImageBitmap
+    {
+        get
+        {
+            try
+            {
+
+
+                if (!string.IsNullOrEmpty(Image))
+                {
+                    var path = System.IO.Path.Combine(
+                        AppContext.BaseDirectory,
+                        "Assets",
+                        Image
+                    );
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        return new Bitmap(path);
+                    }
+                }
+            }
+            catch
+            {
+                return new Bitmap(AssetLoader.Open(
+                new Uri("avares://avtoservicePro/Assets/image_placeholder_resource.png")
+            ));
+            }
+
+            return new Bitmap(AssetLoader.Open(
+                new Uri("avares://avtoservicePro/Assets/image_placeholder_resource.png")
+            ));
+
+        }
     }
 }

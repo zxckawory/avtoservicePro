@@ -22,7 +22,11 @@ public partial class AvtoserviceContext : DbContext
 
     public virtual DbSet<FuelType> FuelTypes { get; set; }
 
+    public virtual DbSet<HistoryType> HistoryTypes { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderHistory> OrderHistories { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -75,6 +79,13 @@ public partial class AvtoserviceContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
+        modelBuilder.Entity<HistoryType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("_historytype__pk");
+
+            entity.ToTable("HistoryType");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("_order__pk");
@@ -102,6 +113,23 @@ public partial class AvtoserviceContext : DbContext
                         j.HasKey("OrderId", "ServiceId").HasName("_orderservice__pk");
                         j.ToTable("OrderService");
                     });
+        });
+
+        modelBuilder.Entity<OrderHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("_orderhistory__pk");
+
+            entity.ToTable("OrderHistory");
+
+            entity.Property(e => e.HistoryTime).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.HistoryType).WithMany(p => p.OrderHistories)
+                .HasForeignKey(d => d.HistoryTypeId)
+                .HasConstraintName("orderhistory_historytype_fk");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderHistories)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("orderhistory_order_fk");
         });
 
         modelBuilder.Entity<Role>(entity =>

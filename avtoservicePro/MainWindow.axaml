@@ -16,31 +16,31 @@
             </avalonia:MaterialIcon>
 
             <StackPanel Spacing="5">
-				<TextBlock Text="Добро пожаловать!" HorizontalAlignment="Center"/>
-                <TextBlock Text="Ваш сервис в надежных руках" HorizontalAlignment="Center"/>
+				<TextBlock Text="Добро пожаловать!" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Foreground="#2C3A4F"/>
+                <TextBlock Text="Ваш сервис в надежных руках" HorizontalAlignment="Center" FontSize="14" Foreground="#7F8C8D"/>
             </StackPanel>
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="1" RowDefinitions="*,*,*,*,*" Margin="10,0">
 			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-				<TextBlock Text="AUTO PRO" HorizontalAlignment="Center"  LetterSpacing="2"/>
-                <TextBlock Text="вход в панель управления" HorizontalAlignment="Center"  LetterSpacing="2.5"/>
+				<TextBlock Text="AUTO PRO" HorizontalAlignment="Center"  LetterSpacing="2" FontSize="32" FontWeight="Heavy" Foreground="#8E44AD"/>
+                <TextBlock Text="вход в панель управления" HorizontalAlignment="Center"  LetterSpacing="2.5" FontSize="11" Foreground="#7F8C8D"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="5">
-				<TextBlock Text="E-mail" Margin="8,0,0,5"/>
+				<TextBlock Text="E-mail" FontWeight="Medium" Foreground="#7F8C8D" Margin="8,0,0,5"/>
                 <TextBox Name="LoginTextBox" PlaceholderText="example@mail.com" Text="admin"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="5">
-				<TextBlock Text="Пароль" Margin="8,0,0,5"/>
+				<TextBlock Text="Пароль" FontWeight="Medium" Foreground="#7F8C8D" Margin="8,0,0,5"/>
                 <TextBox Name="PasswordTextBox" PlaceholderText="Введите пароль" PasswordChar="•" Text="admin" Classes="revealPasswordButton"/>
             </StackPanel>
 
             <Button Grid.Row="3" Grid.ColumnSpan="2" Name="EnterButton" Click="EnterButton_Click" Margin="0,20,0,0" Content="ВОЙТИ" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 
             <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-				 <TextBlock Text="Впервые в системе? " VerticalAlignment="Center"/>
+				 <TextBlock Text="Впервые в системе? "  Foreground="#7F8C8D" VerticalAlignment="Center"/>
                 <HyperlinkButton Name="RegistrationHLButton" Content="Создать аккаунт" Padding="0" Click="RegistrationHLButton_Click" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>

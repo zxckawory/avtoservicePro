@@ -35,14 +35,14 @@ public partial class UserControlService : UserControl
             MaxItems = 3
         };
 
-        if(user.RoleId == 1)
+        if (user.RoleId == 1)
         {
-            NavigationExpander.IsVisible = false;
+            AddServiceButton.IsVisible = false;
             IsAdmin = false;
         }
         else
         {
-            NavigationExpander.IsVisible = true;
+            AddServiceButton.IsVisible = true;
             IsAdmin = true;
 
         }
@@ -53,6 +53,32 @@ public partial class UserControlService : UserControl
         context = new AvtoserviceContext();
         services = new(context.Services);
         ServiceItemsControl.ItemsSource = services;
+    }
+
+    private void Sort()
+    {
+        List<Service> sortedService = services;
+        switch (CostComboBox.SelectedIndex)
+        {
+            case 0:
+                sortedService = sortedService.ToList();
+                break;
+            case 1:
+                sortedService = sortedService.OrderByDescending(x => x.ServiceCost).ToList();
+                break;
+            case 2:
+                sortedService = sortedService.OrderBy(x => x.ServiceCost).ToList();
+                break;
+        }
+
+        if(SearchTextBox.Text is string searchText)
+        {
+            if(searchText != null)
+            {
+                sortedService = sortedService.Where(x => x.ServiceName.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+        }
+        ServiceItemsControl.ItemsSource = sortedService;
     }
 
     private void AddServiceButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -90,5 +116,17 @@ public partial class UserControlService : UserControl
                 var b = await OverlayMessageBox.ShowAsync("Успешно", null, null, MessageBoxIcon.Success);
             }
         }
+    }
+
+    private void CostComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
+    }
+
+    private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
     }
 }

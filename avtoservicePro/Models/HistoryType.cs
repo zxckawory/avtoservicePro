@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace avtoservicePro.Models;
 
-public partial class CarType
+public partial class HistoryType
 {
     public int Id { get; set; }
 
     public string Type { get; set; } = null!;
 
-    public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
+    public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
 
     public override string ToString()
     {
         return Type;
     }
 
-    public bool CarTypeIsVisible
+    public bool TypeIsVisible
     {
         get
         {
@@ -27,6 +27,21 @@ public partial class CarType
             else
             {
                 return false;
+            }
+        }
+    }
+
+    public string ImageType
+    {
+        get
+        {
+            if(Id == 1)
+            {
+                return "CheckCircleOutline";
+            }
+            else
+            {
+                return "PencilOutline";
             }
         }
     }

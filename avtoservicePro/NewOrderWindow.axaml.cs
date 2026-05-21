@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace avtoservicePro;
 
@@ -142,7 +143,7 @@ public partial class NewOrderWindow : Window
 
     private async void SaveButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if(CarComboBox.SelectedItem == null || ServicesBox.SelectedItem == null)
+        if(CarComboBox.SelectedItem == null || services.Count == 0)
         {
             notificationManager.Show("Поля заполнены неверно", NotificationType.Error, TimeSpan.FromSeconds(3));
             return;
@@ -157,23 +158,52 @@ public partial class NewOrderWindow : Window
 
             if (!string.IsNullOrEmpty(newImagePath))
             {
-                File.Copy(newImagePath, $"Assets/{order.Image}", true);
+                if (string.IsNullOrEmpty(order.Image))
+                {
+                    order.Image = Guid.NewGuid().ToString() +
+                                Path.GetExtension(newImagePath);
+                }
+
+                var path = Path.Combine(
+                    AppContext.BaseDirectory,
+                    "Assets",
+                    order.Image
+                );
+
+                File.Copy(newImagePath, path, true);
             }
 
             var selectedService = ServicesBox.SelectedItems!.OfType<Service>().Select(x => x.Id).ToList();
             order.Services = await context.Services.Where(x => selectedService.Contains(x.Id)).ToListAsync();
 
             context.Orders.Update(order);
+
+            var orderHistory = new OrderHistory
+            {
+                OrderId = order.Id,
+                HistoryTypeId = 2,
+                HistoryTime = DateTime.Now
+            };
+
+            context.OrderHistories.Add(orderHistory);
         }
         else
         {
+            order1.Id = context.Orders.Max(x => x.Id) + 1;
             order1.Description = DescriptionTextBox.Text;
             order1.CarId = (CarComboBox.SelectedItem as Car)!.Id;
             order1.OrderDayTime = DateTime.Now;
 
-            if (!string.IsNullOrEmpty(newImagePath))
+            if (!string.IsNullOrEmpty(newImagePath) &&
+    !string.IsNullOrEmpty(order1.Image))
             {
-                File.Copy(newImagePath, $"Assets/{order1.Image}", true);
+                var path = Path.Combine(
+                    AppContext.BaseDirectory,
+                    "Assets",
+                    order1.Image
+                );
+
+                File.Copy(newImagePath, path, true);
             }
 
             foreach (var services in ServicesBox.SelectedItems!)
@@ -187,6 +217,15 @@ public partial class NewOrderWindow : Window
             }
 
             context.Orders.Add(order1);
+
+            var orderHistory = new OrderHistory
+            {
+                OrderId = order1.Id,
+                HistoryTypeId = 1,
+                HistoryTime = DateTime.Now
+            };
+
+            context.OrderHistories.Add(orderHistory);
         }
 
         await context.SaveChangesAsync();

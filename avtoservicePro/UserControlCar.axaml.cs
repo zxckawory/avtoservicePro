@@ -42,7 +42,7 @@ public partial class UserControlCar : UserControl
     {
         context = new AvtoserviceContext();
 
-        if(user1.RoleId == 1)
+        if (user1.RoleId == 1)
         {
             cars = new(context.Cars.Include(x => x.CarType).Include(x => x.FuelType).Include(x => x.Orders).Where(x => x.UserId == user1.Id));
         }
@@ -51,6 +51,42 @@ public partial class UserControlCar : UserControl
             cars = new(context.Cars.Include(x => x.CarType).Include(x => x.FuelType).Include(x => x.Orders));
         }
         CarItemsControl.ItemsSource = cars;
+
+        if (cars.Count == 0)
+        {
+            CarsCount.IsVisible = true;
+        }
+
+        var carTypes = context.CarTypes.ToList();
+        carTypes.Insert(0, new CarType
+        {
+            Id = 0,
+            Type = "Тип автомобиля"
+        });
+        CarTypeComboBox.ItemsSource = carTypes;
+        CarTypeComboBox.SelectedIndex = 0;
+    }
+
+    private void Sort()
+    {
+        List<Car> sortedCars = cars;
+        if (CarTypeComboBox.SelectedItem is CarType selectedType)
+        {
+            if (selectedType.Id != 0)
+            {
+                sortedCars = sortedCars.Where(x => x.CarTypeId == selectedType.Id).ToList();
+            }
+        }
+        if (SearchTextBox.Text is string searchText)
+        {
+            if (searchText != null)
+            {
+                sortedCars = sortedCars.Where(x => x.CarName.ToLower().Contains(searchText.ToLower()) ||
+                x.CarNumber.ToLower().Contains(searchText.ToLower()) ||
+                x.CarType!.Type.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+        }
+        CarItemsControl.ItemsSource = sortedCars;
     }
 
     private void AddCarButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -60,7 +96,7 @@ public partial class UserControlCar : UserControl
 
     private void UpdateCarButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if((sender as Button)!.DataContext is Car car && car != null)
+        if ((sender as Button)!.DataContext is Car car && car != null)
         {
             new NewCarWindow(car, this).ShowDialog(menuWindow1);
         }
@@ -88,5 +124,17 @@ public partial class UserControlCar : UserControl
                 var b = await OverlayMessageBox.ShowAsync("Успешно", null, null, MessageBoxIcon.Success);
             }
         }
+    }
+
+    private void CarTypeComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
+    }
+
+    private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
     }
 }

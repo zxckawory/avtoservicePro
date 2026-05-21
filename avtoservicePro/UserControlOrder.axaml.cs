@@ -41,15 +41,29 @@ public partial class UserControlOrder : UserControl
     public async Task Load()
     {
         context = new AvtoserviceContext();
-        if(user1.RoleId == 2)
+        if (user1.RoleId == 2)
         {
             orders = new(context.Orders.Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User));
         }
         else
         {
-            orders = new(context.Orders.Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User).Where(x => x.Id == user1.Id));
+            orders = new(context.Orders.Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User).Where(x => x.Car.UserId == user1.Id));
         }
         OrdersItemsControl.ItemsSource = orders;
+
+        if (orders.Count == 0)
+        {
+            OrdersCount.IsVisible = true;
+        }
+
+        var services = context.Services.ToList();
+        services.Insert(0, new Service
+        {
+            Id = 0,
+            ServiceName = "Услуга"
+        });
+        ServiceComboBox.ItemsSource = services;
+        ServiceComboBox.SelectedIndex = 0;
     }
 
     private void AddOrderButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -87,5 +101,39 @@ public partial class UserControlOrder : UserControl
                 var b = await OverlayMessageBox.ShowAsync("Успешно", null, null, MessageBoxIcon.Success);
             }
         }
+    }
+
+    private void Sort()
+    {
+        List<Order> sortedOrders = orders;
+        if (ServiceComboBox.SelectedItem is Service service)
+        {
+            if (service.Id != 0)
+            {
+                sortedOrders = sortedOrders.Where(x => x.Services.Any(x => x.Id == service.Id)).ToList();
+            }
+        }
+        if (SearchTextBox.Text is string searchText)
+        {
+            if (searchText != null)
+            {
+                sortedOrders = sortedOrders.Where(x => x.Car.CarName.ToLower().Contains(searchText.ToLower()) ||
+                x.Car.CarNumber.ToLower().Contains(searchText.ToLower()) ||
+                x.Services.Any(x => x.ServiceName.ToLower().Contains(searchText.ToLower()))).ToList();
+            }
+        }
+        OrdersItemsControl.ItemsSource = sortedOrders;
+    }
+
+    private void ServiceComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
+    }
+
+    private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
     }
 }

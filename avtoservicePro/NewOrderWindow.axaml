@@ -16,8 +16,8 @@
 			</Border>
 
 			<StackPanel VerticalAlignment="Center">
-				<TextBlock Name="TitleTextBox" Text="Создание заказа"/>
-				<TextBlock Text="Привяжите услуги к автомобилю клиента"/>
+				<TextBlock Name="TitleTextBox" Text="Создание заказа" FontSize="22" FontWeight="Bold" Foreground="#2C3A4F"/>
+				<TextBlock Text="Привяжите услуги к автомобилю клиента" FontSize="12" Foreground="#7F8C8D"/>
 			</StackPanel>
 		</StackPanel>
 
@@ -29,11 +29,11 @@
 
 						<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
 							<Button Name="AddImage" Click="AddImage_Click" Margin="0,0,10,0" Height="45" Width="45" Padding="0">
-								<avalonia:MaterialIcon Kind="ImagePlusOutline" Height="26"/>
+								<avalonia:MaterialIcon Kind="ImagePlusOutline" Height="26" Classes="ButtonImage"/>
 							</Button>
 
 							<Button Name="RemoveImage" Click="RemoveImage_Click" Margin="10,0,0,0" Height="45" Width="45" Padding="0">
-								<avalonia:MaterialIcon Kind="ImageMinusOutline" Height="26"/>
+								<avalonia:MaterialIcon Kind="ImageMinusOutline" Height="26" Classes="ButtonImage"/>
 							</Button>
 						</StackPanel>
 					</StackPanel>
@@ -44,17 +44,17 @@
 				<Border Background="White" CornerRadius="15" Padding="20" BoxShadow="0 2 10 0 #08000000">
 					<StackPanel Spacing="15">
 						<StackPanel Spacing="8">
-							<TextBlock Text="Автомобиль"/>
+							<TextBlock Text="Выбор автомобиля:" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
 							<u:AutoCompleteBox Name="CarComboBox" HorizontalAlignment="Stretch" Height="45"/>
 						</StackPanel>
 
 						<StackPanel Spacing="8">
-							<TextBlock Text="Описание проблемы"/>
+							<TextBlock Text="Описание проблемы" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
 							<TextBox Name="DescriptionTextBox" PlaceholderText="Опишите состояние или жалобы..." AcceptsReturn="True" TextWrapping="Wrap" Height="120" VerticalContentAlignment="Top" Padding="10"/>
 						</StackPanel>
 
 						<StackPanel Spacing="8">
-							<TextBlock Text="Выбор услуг:"/>
+							<TextBlock Text="Выбор услуг:" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
 							<u:MultiComboBox Name="ServicesBox"/>
 						</StackPanel>
 					</StackPanel>

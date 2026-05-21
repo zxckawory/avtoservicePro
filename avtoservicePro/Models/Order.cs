@@ -19,6 +19,8 @@ public partial class Order
 
     public virtual Car Car { get; set; } = null!;
 
+    public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
+
     public virtual ICollection<Service> Services { get; set; } = new List<Service>();
 
     public Bitmap ImageBitmap
@@ -54,6 +56,14 @@ public partial class Order
                 new Uri("avares://avtoservicePro/Assets/image_placeholder_resource.png")
             ));
 
+        }
+    }
+
+    public string AllServices
+    {
+        get
+        {
+            return string.Join(", ", Services);
         }
     }
 }

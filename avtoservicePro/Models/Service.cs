@@ -17,4 +17,19 @@ public partial class Service
     {
         return ServiceName;
     }
+
+    public bool ServiceIsVisible
+    {
+        get
+        {
+            if (Id == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }

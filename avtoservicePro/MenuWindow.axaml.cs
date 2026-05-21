@@ -36,6 +36,7 @@ public partial class MenuWindow : Window
         ServiceTabItem.Content = new UserControlService(this, user1);
         UserTabItem.Content = new UserControlUser(this);
         OrderTabItem.Content = new UserControlOrder(this,user1);
+        OrderHistoryTabItem.Content = new UserControlOrderHistory(this, user1);
     }
 
     private void ExitButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

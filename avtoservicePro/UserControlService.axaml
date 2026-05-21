@@ -12,6 +12,34 @@
 		<Expander ExpandDirection="Right" Header="Панель навигации" Name="NavigationExpander" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10">
 			<StackPanel Margin="10">
 				<Button Name="AddServiceButton" Content="Добавить услугу" Click="AddServiceButton_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,10"/>
+
+				<ComboBox Name="CostComboBox" Margin="0,0,0,10" SelectedIndex="0" SelectionChanged="CostComboBox_SelectionChanged">
+						<ComboBoxItem >
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Цена" Margin="0,0,10,0"/>
+								<avalonia:MaterialIcon Kind="CloseCircleOutline"/>
+							</StackPanel>
+						</ComboBoxItem>
+
+						<ComboBoxItem >
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Цена" Margin="0,0,10,0"/>
+								<avalonia:MaterialIcon Kind="ArrowUpThin"/>
+							</StackPanel>
+						</ComboBoxItem>
+
+						<ComboBoxItem >
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Цена" Margin="0,0,10,0"/>
+								<avalonia:MaterialIcon Kind="ArrowDownThin"/>
+							</StackPanel>
+						</ComboBoxItem>
+					</ComboBox>
+
+				<StackPanel Orientation="Horizontal">
+					<avalonia:MaterialIcon Kind="Magnify" Margin="0,0,10,0" Width="20" Height="20"/>
+					<TextBox Name="SearchTextBox" Width="200" PlaceholderText="покраска" HorizontalAlignment="Stretch" TextChanged="SearchTextBox_TextChanged"/>
+				</StackPanel>
 			</StackPanel>
 		</Expander>
 
@@ -25,20 +53,20 @@
 									<avalonia:MaterialIcon Kind="Wrench" Width="22" Height="22"/>
 								</Border>
 
-								<TextBlock Grid.Column="1" Margin="15,0" VerticalAlignment="Center" Text="{Binding ServiceName}"/>
+								<TextBlock Grid.Column="1" Margin="15,0" VerticalAlignment="Center" Text="{Binding ServiceName}" FontSize="15" FontWeight="SemiBold" Foreground="#2C3A4F"/>
 
 								<StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,20,0">
-									<TextBlock Text="Стоимость" HorizontalAlignment="Right"/>
-									<TextBlock Text="{Binding ServiceCost, StringFormat='{}{0}₽'}"/>
+									<TextBlock Text="Стоимость" FontSize="10" Foreground="#BDC3C7" HorizontalAlignment="Right"/>
+									<TextBlock Text="{Binding ServiceCost, StringFormat='{}{0}₽'}" FontSize="18" FontWeight="Bold" Foreground="#8E44AD"/>
 								</StackPanel>
 
 								<StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="10">
-									<Button Name="UpdateServiceButton" Click="UpdateServiceButton_Click" Width="36" Height="36" BorderThickness="1" CornerRadius="8" ToolTip.Tip="Изменить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}">
-										<avalonia:MaterialIcon Kind="Edit" Width="16" Height="16"/>
+									<Button Name="UpdateServiceButton" Click="UpdateServiceButton_Click" Width="36" Height="36" BorderThickness="1" CornerRadius="8" ToolTip.Tip="Изменить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}" Classes="UpdateButton">
+										<avalonia:MaterialIcon Kind="Edit" Width="16" Height="16" Classes="ButtonImage"/>
 									</Button>
 
-									<Button Name="DeleteServiceButton" Click="DeleteServiceButton_Click" Width="36" Height="36" CornerRadius="8" ToolTip.Tip="Удалить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}">
-										<avalonia:MaterialIcon Kind="Delete" Width="16" Height="16"/>
+									<Button Name="DeleteServiceButton" Click="DeleteServiceButton_Click" Width="36" Height="36" CornerRadius="8" ToolTip.Tip="Удалить" IsVisible="{Binding IsAdmin, RelativeSource={RelativeSource AncestorType=UserControl}}" Classes="RemoveButton">
+										<avalonia:MaterialIcon Kind="Delete" Width="16" Height="16" Classes="ButtonImage"/>
 									</Button>
 								</StackPanel>
 							</Grid>
