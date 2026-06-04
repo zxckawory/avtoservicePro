@@ -26,3 +26,4 @@ public partial class User
         return Name;
     }
 }
+

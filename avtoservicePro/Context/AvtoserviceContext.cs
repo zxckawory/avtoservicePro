@@ -32,6 +32,8 @@ public partial class AvtoserviceContext : DbContext
 
     public virtual DbSet<Service> Services { get; set; }
 
+    public virtual DbSet<Status> Statuses { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -99,6 +101,10 @@ public partial class AvtoserviceContext : DbContext
                 .HasForeignKey(d => d.CarId)
                 .HasConstraintName("order_car_fk");
 
+            entity.HasOne(d => d.Status).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.StatusId)
+                .HasConstraintName("order_status_fk");
+
             entity.HasMany(d => d.Services).WithMany(p => p.Orders)
                 .UsingEntity<Dictionary<string, object>>(
                     "OrderService",
@@ -148,6 +154,15 @@ public partial class AvtoserviceContext : DbContext
             entity.ToTable("Service");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<Status>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("_ordertype__pk");
+
+            entity.ToTable("Status");
+
+            entity.Property(e => e.Status1).HasColumnName("Status");
         });
 
         modelBuilder.Entity<User>(entity =>

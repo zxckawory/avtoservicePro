@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>Assets\car.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\image_placeholder_resource.png" />
@@ -13,6 +14,9 @@
     <AvaloniaResource Include="Assets\image_placeholder_resource.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AvaloniaResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\car.ico" />
   </ItemGroup>
 
   <ItemGroup>

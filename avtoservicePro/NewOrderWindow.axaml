@@ -53,10 +53,17 @@
 							<TextBox Name="DescriptionTextBox" PlaceholderText="Опишите состояние или жалобы..." AcceptsReturn="True" TextWrapping="Wrap" Height="120" VerticalContentAlignment="Top" Padding="10"/>
 						</StackPanel>
 
-						<StackPanel Spacing="8">
-							<TextBlock Text="Выбор услуг:" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
-							<u:MultiComboBox Name="ServicesBox"/>
-						</StackPanel>
+						<Grid ColumnDefinitions="*,*">
+							<StackPanel Spacing="8">
+								<TextBlock Text="Выбор услуг:" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+								<u:MultiComboBox Name="ServicesBox" WrapSelection="True"/>
+							</StackPanel>
+
+							<StackPanel Grid.Column="1">
+								<TextBlock Text="Статус заказа" FontSize="12" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+								<u:AutoCompleteBox Name="StatusComboBox" HorizontalAlignment="Stretch" Height="45"/>
+							</StackPanel>
+						</Grid>
 					</StackPanel>
 				</Border>
 			</StackPanel>

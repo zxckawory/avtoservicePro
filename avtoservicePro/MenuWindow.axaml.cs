@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using avtoservicePro.Context;
 using avtoservicePro.Models;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace avtoservicePro;
 
@@ -20,10 +21,18 @@ public partial class MenuWindow : Window
     {
         InitializeComponent();
         user1 = user;
+        Load();
+    }
+
+    public void Load()
+    {
+        context = new AvtoserviceContext();
+        var user = context.Users.First(x => x.Id == user1.Id);
+        user1 = user;
         FullNameTextBlock.Text = user1.Name;
         RoleTextBlock.Text = context.Users.Where(x => x.Id == user1.Id).Select(x => x.Role!.Name).FirstOrDefault()!.ToString();
 
-        if(user1.RoleId == 1)
+        if (user1.RoleId == 1)
         {
             UserTabItem.IsVisible = false;
         }
@@ -35,7 +44,7 @@ public partial class MenuWindow : Window
         CarTabItem.Content = new UserControlCar(this, user1);
         ServiceTabItem.Content = new UserControlService(this, user1);
         UserTabItem.Content = new UserControlUser(this);
-        OrderTabItem.Content = new UserControlOrder(this,user1);
+        OrderTabItem.Content = new UserControlOrder(this, user1);
         OrderHistoryTabItem.Content = new UserControlOrderHistory(this, user1);
     }
 
@@ -43,5 +52,10 @@ public partial class MenuWindow : Window
     {
         new MainWindow().Show();
         Close();
+    }
+
+    private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        new UpdateUserWindow(user1, this).ShowDialog(this);
     }
 }

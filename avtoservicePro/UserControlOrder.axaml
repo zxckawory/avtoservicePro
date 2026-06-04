@@ -24,6 +24,17 @@
 					</ComboBox.ItemTemplate>
 				</ComboBox>
 
+				<ComboBox Name="StatusComoboBox" SelectionChanged="StatusComoboBox_SelectionChanged" HorizontalAlignment="Stretch" Margin="0,0,0,10">
+					<ComboBox.ItemTemplate>
+						<DataTemplate DataType="m:Status">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding Status1}" Margin="0,0,10,0"/>
+								<avalonia:MaterialIcon Kind="CloseCircleOutline" IsVisible="{Binding StatusIsVisible}"/>
+							</StackPanel>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
 				<StackPanel Orientation="Horizontal">
 					<avalonia:MaterialIcon Kind="Magnify" Margin="0,0,10,0" Width="20" Height="20"/>
 					<TextBox Name="SearchTextBox" Width="200" PlaceholderText="BMW M5" HorizontalAlignment="Stretch" TextChanged="SearchTextBox_TextChanged"/>
@@ -57,9 +68,14 @@
 											<TextBlock Text="{Binding OrderDayTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" FontSize="13" Foreground="#2C3A4F"/>
 										</StackPanel>
 
-										<StackPanel Orientation="Horizontal">
+										<StackPanel Orientation="Horizontal" Margin="0,0,20,0">
 											<avalonia:MaterialIcon Kind="AccountTie" Width="16" Margin="0,0,6,0"/>
 											<TextBlock Text="{Binding Car.User.Name}" FontWeight="Medium" FontSize="13" Foreground="#2C3A4F"/>
+										</StackPanel>
+
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Статус заказа: " FontWeight="Medium" FontSize="13" Foreground="#2C3A4F"/>
+											<TextBlock Text="{Binding Status}" FontWeight="Medium" FontSize="13" Foreground="#2C3A4F"/>
 										</StackPanel>
 									</WrapPanel>
 								</StackPanel>

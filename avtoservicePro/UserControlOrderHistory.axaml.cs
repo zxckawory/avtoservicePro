@@ -46,13 +46,15 @@ public partial class UserControlOrderHistory : UserControl
         {
             orders = new(context.OrderHistories.Include(x => x.HistoryType)
                 .Include(x => x.Order).ThenInclude(x => x.Services)
-                .Include(x => x.Order).ThenInclude(x => x.Car).ThenInclude(x => x.User));
+                .Include(x => x.Order).ThenInclude(x => x.Car).ThenInclude(x => x.User)
+                .Include(x => x.Order).ThenInclude(x => x.Status));
         }
         else
         {
             orders = new(context.OrderHistories.Include(x => x.HistoryType)
                 .Include(x => x.Order).ThenInclude(x => x.Services)
-                .Include(x => x.Order).ThenInclude(x => x.Car).ThenInclude(x => x.User).Where(x => x.Order.Car.User.Id == user1.Id));
+                .Include(x => x.Order).ThenInclude(x => x.Car).ThenInclude(x => x.User).Where(x => x.Order.Car.User.Id == user1.Id)
+                .Include(x => x.Order).ThenInclude(x => x.Status));
         }
         OrdersItemsControl.ItemsSource = orders;
 
@@ -95,10 +97,10 @@ public partial class UserControlOrderHistory : UserControl
                 sortedOrders = sortedOrders.ToList();
                 break;
             case 1:
-                sortedOrders = sortedOrders.OrderByDescending(x => x.HistoryType.Type).ToList();
+                sortedOrders = sortedOrders.OrderByDescending(x => x.HistoryTime).ToList();
                 break;
             case 2:
-                sortedOrders = sortedOrders.OrderBy(x => x.HistoryType.Type).ToList();
+                sortedOrders = sortedOrders.OrderBy(x => x.HistoryTime).ToList();
                 break;
         }
         OrdersItemsControl.ItemsSource = sortedOrders;

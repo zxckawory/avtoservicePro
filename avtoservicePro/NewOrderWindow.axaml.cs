@@ -45,6 +45,7 @@ public partial class NewOrderWindow : Window
         user1 = user;
         Load();
         RemoveImage.IsEnabled = false;
+        StatusComboBox.IsVisible = false;
     }
 
     public NewOrderWindow(Order order, UserControlOrder userControlOrder, User user)
@@ -66,6 +67,7 @@ public partial class NewOrderWindow : Window
 
         CarComboBox.SelectedItem = order1.Car;
         DescriptionTextBox.Text = order1.Description;
+        StatusComboBox.SelectedItem = order1.Status;
         services = context.Services.ToList();
         var selectedService = order1.Services.Select(x => x.Id).ToList();
         foreach( var service in services)
@@ -99,6 +101,7 @@ public partial class NewOrderWindow : Window
         }
         services = context.Services.ToList();
         ServicesBox.ItemsSource = services;
+        StatusComboBox.ItemsSource = context.Statuses.ToList();
     }
 
     private async void AddImage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -151,10 +154,11 @@ public partial class NewOrderWindow : Window
 
         if(IsEdit == true)
         {
-            var order = context.Orders.Include(x => x.Services).Include(x => x.Car).First(x => x.Id == order1.Id);
+            var order = context.Orders.Include(x => x.Status).Include(x => x.Services).Include(x => x.Car).First(x => x.Id == order1.Id);
 
             order.Description = DescriptionTextBox.Text;
             order.CarId = (CarComboBox.SelectedItem as Car)!.Id;
+            order.StatusId = (StatusComboBox.SelectedItem as Status)!.Id;
 
             if (!string.IsNullOrEmpty(newImagePath))
             {
@@ -193,6 +197,7 @@ public partial class NewOrderWindow : Window
             order1.Description = DescriptionTextBox.Text;
             order1.CarId = (CarComboBox.SelectedItem as Car)!.Id;
             order1.OrderDayTime = DateTime.Now;
+            order1.StatusId = 2;
 
             if (!string.IsNullOrEmpty(newImagePath) &&
     !string.IsNullOrEmpty(order1.Image))

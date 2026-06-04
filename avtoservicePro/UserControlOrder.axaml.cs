@@ -43,11 +43,11 @@ public partial class UserControlOrder : UserControl
         context = new AvtoserviceContext();
         if (user1.RoleId == 2)
         {
-            orders = new(context.Orders.Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User));
+            orders = new(context.Orders.Include(x => x.Status).Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User));
         }
         else
         {
-            orders = new(context.Orders.Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User).Where(x => x.Car.UserId == user1.Id));
+            orders = new(context.Orders.Include(x => x.Status).Include(x => x.Services).Include(x => x.Car).ThenInclude(x => x.User).Where(x => x.Car.UserId == user1.Id));
         }
         OrdersItemsControl.ItemsSource = orders;
 
@@ -64,6 +64,15 @@ public partial class UserControlOrder : UserControl
         });
         ServiceComboBox.ItemsSource = services;
         ServiceComboBox.SelectedIndex = 0;
+
+        var statuses = context.Statuses.ToList();
+        statuses.Insert(0, new Status
+        {
+            Id = 0,
+            Status1 = "Статус"
+        });
+        StatusComoboBox.ItemsSource = statuses;
+        StatusComoboBox.SelectedIndex = 0;
     }
 
     private void AddOrderButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -113,6 +122,13 @@ public partial class UserControlOrder : UserControl
                 sortedOrders = sortedOrders.Where(x => x.Services.Any(x => x.Id == service.Id)).ToList();
             }
         }
+        if(StatusComoboBox.SelectedItem is Status status)
+        {
+            if(status.Id != 0)
+            {
+                sortedOrders = sortedOrders.Where(x => x.Status.Id == status.Id).ToList();
+            }
+        }
         if (SearchTextBox.Text is string searchText)
         {
             if (searchText != null)
@@ -132,6 +148,12 @@ public partial class UserControlOrder : UserControl
     }
 
     private void SearchTextBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (!IsLoaded) return;
+        Sort();
+    }
+
+    private void StatusComoboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (!IsLoaded) return;
         Sort();

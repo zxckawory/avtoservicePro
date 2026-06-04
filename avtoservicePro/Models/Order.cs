@@ -16,8 +16,10 @@ public partial class Order
     public string? Image { get; set; }
 
     public int CarId { get; set; }
+    public int StatusId { get; set; }
 
     public virtual Car Car { get; set; } = null!;
+    public virtual Status Status { get; set; } = null!;
 
     public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
 
